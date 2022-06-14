@@ -9,6 +9,6 @@ export class VerificationController {
     @Get('GetCode/:id')
     getCode(@Param('id') id: string) {
         const userInfo = this._verification.getUserInfo(parseInt(id))
-        return this._verification.getCode(userInfo);
+        return this._verification.getVerificationUrls(userInfo);
     }
 }
