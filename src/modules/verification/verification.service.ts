@@ -1,42 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigEnvService } from 'src/config-env/config-env.service';
 import { GmailService } from 'src/mailing/gmail/gmail.service';
-import { UserInfo } from './interfaces/userInfo.interface';
-
-const USERS_INFO: UserInfo[] = [
-    {
-        id: 1,
-        name: 'Manuel Tapia',
-        accountName: 'Manu'
-    },
-    {
-        id: 2,
-        name: 'Veronica Caroca',
-        accountName: 'Veroo'
-    }
-]
 
 @Injectable()
 export class VerificationService {
 
     constructor(private _gmail: GmailService) { }
 
-    getUserInfo(id: number): UserInfo {
-        return USERS_INFO.find(userInfo => userInfo.id == id);
-    }
-    getVerificationUrls(userInfo: UserInfo) {
-        const lastVerificationUrls = this.getLastVerificationUrls(userInfo.accountName);
+    getVerificationUrls(account: string) {
+        const lastVerificationUrls = this.getLastVerificationUrls(account);
         return lastVerificationUrls;
     }
     private async getLastVerificationUrls(accountName: string) {
         const from = 'info@mailer.netflix.com'
         const subject = "Tu código de verificación de Netflix"
         const lastweek = new Date();
-        lastweek.setDate(lastweek.getDate() - 7);
+        lastweek.setDate(lastweek.getDate() - 1);
         const around = `"Perfil AROUND ${accountName}"`
         const messages = await this._gmail.getMessageFrom(from, subject, lastweek, around);
-
-        if (messages.length == 0) {
+        console.log(messages);
+        if (!messages) {
             return []
         }
 
