@@ -25,13 +25,14 @@ export class VerificationService {
         const userVerificationMessages = messagesContent.map((message: any) => {
             const encodedMessage = message.payload["parts"][0].body.data;
             const date = new Date(message.payload["headers"][3].value.split(";")[1])
-            const dateformat = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}`
+            const fulldate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+            const fulltime = `${date.getHours()}:${date.getMinutes()}`;
             const decodedStr = Buffer.from(encodedMessage, "base64").toString(
                 "ascii"
             );
             const decodedArrayStr = decodedStr.split(/[\s\\]+/);
             return {
-                date: dateformat,
+                date: { fulldate, fulltime },
                 url: decodedArrayStr.find(word => word.includes('http://msg.netflix.com/'))
             }
         })

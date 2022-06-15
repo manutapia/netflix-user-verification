@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Netflix User Verification</title>
+        <style>
+            body{
+                background-color: #141414;
+                font-family: 'Open Sans', 'Helvetica Neue', sans-serif
+            }
+            .content{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .content .account{
+                text-align: center;
+                color: #fff;
+            }
+            .content .links-list{
+                margin: 0;
+                padding: 0;
+                width: 90%;
+                max-width: 500px;
+            }
+            .content .links-list .item{
+                min-height: 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: rgba(109,109,110,0.7);
+                color: white;
+                padding: 4px 12px;
+                border-radius: 4px;
+            }
+            .content .links-list .item a{
+                background-color: white;
+                padding: 4px 8px;
+                color: black;
+                border-radius: 4px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <h1 class="account">{{account}}</h1>
+            <ul class="links-list">
+                {{#each verificationUrls}}
+                    <li class="item">
+                        <span>Fecha: {{this.date.fulldate}} - Hora: {{this.date.fulltime}}</span>
+                        <a href="{{this.url}}">Link</a>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </body>
+</html>

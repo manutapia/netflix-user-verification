@@ -6,7 +6,11 @@ import { ConfigEnvModule } from './config-env/config-env.module';
 import { MailingModule } from './mailing/mailing.module';
 
 @Module({
-  imports: [VerificationModule, ConfigEnvModule, MailingModule],
+  imports: [
+    VerificationModule,
+    ConfigEnvModule,
+    MailingModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
