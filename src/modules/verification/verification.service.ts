@@ -24,7 +24,9 @@ export class VerificationService {
         const messagesContent = await Promise.all(messages.map(async (message) => await this._gmail.readGmailContent(message.id)))
         const userVerificationMessages = messagesContent.map((message: any) => {
             const encodedMessage = message.payload["parts"][0].body.data;
-            const date = new Date(message.payload["headers"][3].value.split(";")[1])
+            const dateaux = new Date(message.payload["headers"][3].value.split(";")[1])
+            const dateISO = dateaux.toISOString();
+            const date = new Date(dateISO);
             const fulldate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
             const fulltime = `${date.getHours()}:${date.getMinutes()}`;
             const decodedStr = Buffer.from(encodedMessage, "base64").toString(
