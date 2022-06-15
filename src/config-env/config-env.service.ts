@@ -19,9 +19,10 @@ export class ConfigEnvService {
             }
         } else {
             this.envConfig = {
-                PORT: process.env.PORT
+                GC_GMAIL_CLIENT_ID: process.env.GC_GMAIL_CLIENT_ID,
+                GC_GMAIL_CLIENT_SECRET: process.env.GC_GMAIL_CLIENT_SECRET,
+                GC_GMAIL_CLIENT_REFRESH_TOKEN: process.env.GC_GMAIL_CLIENT_REFRESH_TOKEN
             }
-            console.log(this.envConfig)
         }
     }
 
