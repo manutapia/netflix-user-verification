@@ -25,10 +25,8 @@ export class VerificationService {
         const userVerificationMessages = messagesContent.map((message: any) => {
             const encodedMessage = message.payload["parts"][0].body.data;
             const dateaux = new Date(message.payload["headers"][3].value.split(";")[1])
-            const dateISO = dateaux.toISOString();
-            const date = new Date(dateISO);
-            const fulldate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
-            const fulltime = `${date.getHours()}:${date.getMinutes()}`;
+            const fulldate = dateaux.toLocaleDateString('es-CL');
+            const fulltime = dateaux.toLocaleTimeString('es-CL');
             const decodedStr = Buffer.from(encodedMessage, "base64").toString(
                 "ascii"
             );
