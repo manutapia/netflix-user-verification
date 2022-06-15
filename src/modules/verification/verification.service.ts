@@ -17,20 +17,24 @@ export class VerificationService {
         lastweek.setDate(lastweek.getDate() - 1);
         const around = `"Perfil AROUND ${accountName}"`
         const messages = await this._gmail.getMessageFrom(from, subject, lastweek, around);
-        console.log(messages);
         if (!messages) {
             return []
         }
 
         const messagesContent = await Promise.all(messages.map(async (message) => await this._gmail.readGmailContent(message.id)))
-        const urls = messagesContent.map((message: any) => {
+        const userVerificationMessages = messagesContent.map((message: any) => {
             const encodedMessage = message.payload["parts"][0].body.data;
+            const date = new Date(message.payload["headers"][3].value.split(";")[1])
+            const dateformat = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}`
             const decodedStr = Buffer.from(encodedMessage, "base64").toString(
                 "ascii"
             );
             const decodedArrayStr = decodedStr.split(/[\s\\]+/);
-            return decodedArrayStr.find(word => word.includes('http://msg.netflix.com/'));
+            return {
+                date: dateformat,
+                url: decodedArrayStr.find(word => word.includes('http://msg.netflix.com/'))
+            }
         })
-        return urls;
+        return userVerificationMessages;
     }
 }
