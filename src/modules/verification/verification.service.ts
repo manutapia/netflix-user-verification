@@ -11,7 +11,7 @@ export class VerificationService {
         return lastVerificationUrls;
     }
     private async getLastVerificationUrls(accountName: string) {
-        const from = 'info@mailer.netflix.com'
+        const from = 'info@account.netflix.com'
         const subject = "Tu código de verificación de Netflix"
         const lastweek = new Date();
         lastweek.setDate(lastweek.getDate() - 1);
