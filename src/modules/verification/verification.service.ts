@@ -32,9 +32,10 @@ export class VerificationService {
                 "ascii"
             );
             const decodedArrayStr = decodedStr.split(/[\s\\]+/);
+            const url = decodedArrayStr.find(word => word.includes('http://msg.netflix.com/')).slice(1, -1)
             return {
                 date: { fulldate, fulltime },
-                url: decodedArrayStr.find(word => word.includes('http://msg.netflix.com/'))
+                url: url
             }
         })
         return userVerificationMessages;
