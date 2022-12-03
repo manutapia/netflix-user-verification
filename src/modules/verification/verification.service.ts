@@ -20,7 +20,6 @@ export class VerificationService {
         if (!messages) {
             return []
         }
-
         const messagesContent = await Promise.all(messages.map(async (message) => await this._gmail.readGmailContent(message.id)))
         const userVerificationMessages = messagesContent.map((message: any) => {
             const encodedMessage = message.payload["parts"][0].body.data;
