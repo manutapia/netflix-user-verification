@@ -10,9 +10,7 @@ export class VerificationController {
     @Get('GetCode/:account')
     @Render('index')
     async getCode(@Param('account') account: string) {
-        console.log('account: ', account);
         const verificationUrls = await this._verification.getVerificationUrls(account);
-        console.log('verificationUrls: ', verificationUrls);
         return { account, verificationUrls }
 
     }
