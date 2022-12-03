@@ -37,6 +37,7 @@ export class VerificationService {
                 url: url
             }
         })
+        console.log('userVerificationMessages: ', userVerificationMessages);
         return userVerificationMessages;
     }
 }
